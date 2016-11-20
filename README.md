@@ -1,6 +1,15 @@
 ## Snap-To-Grid
 Complete Snap To Grid GameObjects script in Unity.
 
+#### Features:
+- Allows you to set the size of the grid
+- Drag objects into the grid
+- Allows to work with several objects and different sizes
+- The object adapts automatically if you change its size or the grid
+- The grid can be moved
+- Save the position of objects
+- It has restrictions and can be disabled, for example, locking put an object in a position where there is already another, or leaving the grid if the object is a larger scale.
+
 Simply download this project and open with Unity for testing!
 
 ### Español:
