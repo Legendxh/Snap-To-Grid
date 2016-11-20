@@ -232,7 +232,7 @@ public class DragAndDrop : MonoBehaviour {
 		#region Restrictions
 
 		// Restrict exit from grid
-		// Retringir que se pueda salir de la cuadricula
+		// Restringir que se pueda salir de la cuadricula
 		var maxXPos = ((gridSize.x - 1) * 0.5f) + gridOffset.x;
 		var maxYPos = ((gridSize.y - 1) * 0.5f) + gridOffset.y;
 
