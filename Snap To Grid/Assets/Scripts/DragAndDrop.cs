@@ -23,7 +23,6 @@ public class DragAndDrop : MonoBehaviour {
 
 	Vector4 targetPos;
 
-	// Al iniciarse este script
 	void Awake () {
 
 		// Correct the position according to the scale of this object
@@ -59,6 +58,14 @@ public class DragAndDrop : MonoBehaviour {
 	// Al presionar el clic sobre este objeto
 	void OnMouseDown() 
 	{ 
+		// Remove the last position
+		// Remover la ultima posicion
+		RemovePosition (lastPos);
+
+		// Update data
+		// Actualizar datos
+		UpdateGridData ();
+
 		// Correct the position according to the scale of this object
 		// Corregir la posicion segun la escala de este objeto
 		var newPos = transform.localPosition;
@@ -67,19 +74,7 @@ public class DragAndDrop : MonoBehaviour {
 
 		transform.localPosition = newPos;
 
-		// Update data
-		// Actualizar datos
-		UpdateGridData ();
 		UpdatePosition ();
-
-		// Save actual position
-		// Guardar posicion actual
-		lastParentPos = transform.parent.position;
-		lastPos = currentPosition;
-
-		// Remove the last position
-		// Remover la posicion
-		RemovePosition (lastPos);
 	}
 
 	// Al estar presionando el clic sobre este objeto
@@ -103,6 +98,11 @@ public class DragAndDrop : MonoBehaviour {
 		// Change GameObject position
 		// Cambiar la posicion de este objeto
 		transform.parent.position = SnapToGrid(screenPoint);
+	}
+
+	public void UpdateAll () {
+		UpdatePosition ();
+		AddPosition (lastPos);
 	}
 
 	// Al soltar el clic sobre este objeto
@@ -147,16 +147,18 @@ public class DragAndDrop : MonoBehaviour {
 
 	// Agregar posicion
 	void AddPosition (Vector4 pos) {
-		if (!FindObjectOfType<Grid> ().occupiedPositions.Contains (pos)) {
-			FindObjectOfType<Grid> ().occupiedPositions.Add (pos);
+		var grid = FindObjectOfType<Grid> ();
+		if (!grid.occupiedPositions.Contains (pos)) {
+			grid.occupiedPositions.Add (pos);
 			// Debug.Log ("Added: " + pos);
 		}
 	}
 
 	// Eliminar posicion
 	void RemovePosition (Vector4 pos) {
-		if (FindObjectOfType<Grid> ().occupiedPositions.Contains (pos)) {
-			FindObjectOfType<Grid> ().occupiedPositions.Remove (pos);
+		var grid = FindObjectOfType<Grid> ();
+		if (grid.occupiedPositions.Contains (pos)) {
+			grid.occupiedPositions.Remove (pos);
 			// Debug.Log ("Removed: " + pos);
 		}
 	}
@@ -188,6 +190,11 @@ public class DragAndDrop : MonoBehaviour {
 
 		currentPosition.z = -(transform.parent.position.y - (gridSize.y * 0.5f) - 0.5f);
 		currentPosition.w = -(transform.parent.position.y - (gridSize.y * 0.5f) - 0.5f) + transform.localScale.y - 1;
+
+		// Save actual position
+		// Guardar posicion actual
+		lastParentPos = transform.parent.position;
+		lastPos = currentPosition;
 	}
 
 	// Fix the GameObject position if the Grid Transform has changed
