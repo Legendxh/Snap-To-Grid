@@ -25,7 +25,7 @@ public class DragAndDrop : MonoBehaviour {
 
 	void Awake () {
 
-		// Correct the position according to the scale of this object
+		// Fix the position according to the scale of this object
 		// Corregir la posicion segun la escala de este objeto
 		var newPos = transform.localPosition;
 		newPos.x = (transform.localScale.x / 2f) - 0.5f;
